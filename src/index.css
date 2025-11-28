@@ -47,40 +47,26 @@
     --gradient-glow-purple: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
     --gradient-glow-pink: radial-gradient(circle at center, rgba(236, 72, 153, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
     /* Responsive typography and spacing tokens */
-    --font-size-hero: 2rem; /* mobile default */
-    --font-size-xl: 1rem;
-    --spacing-lg: 1rem;
-    --spacing-xl: 1.5rem;
-    --spacing-2xl: 2rem;
-    --spacing-3xl: 2.5rem;
-    --radius-2xl: 1rem;
-    --shadow-xl: 0 10px 30px rgba(2,6,23,0.08);
+    --font-size-hero: clamp(2rem, 5vw + 1rem, 3.5rem);
+    --font-size-xl: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+    --spacing-lg: clamp(1rem, 2vw, 1.5rem);
+    --spacing-xl: clamp(1.5rem, 3vw, 2rem);
+    --spacing-2xl: clamp(2rem, 4vw, 3rem);
+    --spacing-3xl: clamp(2.5rem, 5vw, 4rem);
+    --radius-2xl: clamp(1rem, 2vw, 1.5rem);
+    --shadow-xl: 0 10px 30px rgba(2, 6, 23, 0.08);
   }
 
-  /* Increase scale on larger screens */
+  /* Mobile-first adjustments are now handled by clamp(), removing redundant media queries for root variables where possible */
   @media (min-width: 640px) {
     :root {
-      --font-size-hero: 2.5rem;
-      --font-size-xl: 1.125rem;
-      --spacing-lg: 1.25rem;
-      --spacing-xl: 1.75rem;
-      --spacing-2xl: 2.25rem;
-      --spacing-3xl: 3rem;
-      --radius-2xl: 1.25rem;
-      --shadow-xl: 0 14px 36px rgba(2,6,23,0.09);
+      --shadow-xl: 0 14px 36px rgba(2, 6, 23, 0.09);
     }
   }
 
   @media (min-width: 1024px) {
     :root {
-      --font-size-hero: 3rem;
-      --font-size-xl: 1.25rem;
-      --spacing-lg: 1.5rem;
-      --spacing-xl: 2rem;
-      --spacing-2xl: 2.75rem;
-      --spacing-3xl: 3.5rem;
-      --radius-2xl: 1.5rem;
-      --shadow-xl: 0 20px 60px rgba(2,6,23,0.12);
+      --shadow-xl: 0 20px 60px rgba(2, 6, 23, 0.12);
     }
   }
 
@@ -88,10 +74,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 text-purple-900 font-sans;
+    @apply bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 text-purple-900 font-sans overflow-x-hidden;
   }
 
   h1,

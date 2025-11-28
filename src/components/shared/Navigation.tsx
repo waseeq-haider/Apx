@@ -62,22 +62,27 @@ export default function Navigation() {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="md:hidden bg-white border-b border-purple-100 absolute w-full px-4 pt-2 pb-6 shadow-xl animate-in slide-in-from-top-5">
-                    <div className="flex flex-col space-y-2">
-                        {navItems.map((item) => (
+                <div className="md:hidden fixed inset-0 z-40 bg-white/60 backdrop-blur-xl animate-in fade-in duration-200">
+                    <div className="flex flex-col h-full pt-20 px-6 pb-6 space-y-4">
+                        {navItems.map((item, index) => (
                             <Link
                                 key={item.path}
                                 to={item.path}
                                 onClick={() => setIsOpen(false)}
-                                className={`flex items-center px-4 py-3 rounded-xl text-base font-medium ${isActive(item.path)
-                                    ? 'bg-slate-900 text-white'
-                                    : 'bg-purple-50 text-slate-600'
+                                className={`flex items-center px-6 py-4 rounded-2xl text-lg font-medium transition-all duration-300 animate-in slide-in-from-bottom-4 fade-in fill-mode-forwards ${isActive(item.path)
+                                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30'
+                                    : 'bg-white/50 text-slate-700 hover:bg-white hover:text-purple-700 hover:shadow-md'
                                     }`}
+                                style={{ animationDelay: `${index * 50}ms` }}
                             >
-                                <item.icon size={18} className="mr-3" />
+                                <item.icon size={24} className="mr-4" />
                                 {item.label}
                             </Link>
                         ))}
+                        <button className="mt-4 w-full flex items-center justify-center px-6 py-4 rounded-2xl text-lg font-bold text-white bg-slate-900 shadow-lg active:scale-95 transition-all">
+                            <Phone size={24} className="mr-3" />
+                            Call Now
+                        </button>
                     </div>
                 </div>
             )}

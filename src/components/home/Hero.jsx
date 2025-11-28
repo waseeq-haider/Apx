@@ -48,7 +48,8 @@ const Hero = () => {
                         maxWidth: '1000px',
                         margin: '0 auto',
                         position: 'relative',
-                        height: '60vw',
+                        height: '60vh', // Changed from 60vw for better mobile vertical space
+                        minHeight: '400px', // Ensure it's not too small on landscape mobile
                         maxHeight: '600px',
                         cursor: 'none' // Hide default cursor for better effect
                     }}

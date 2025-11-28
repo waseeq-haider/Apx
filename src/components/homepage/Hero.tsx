@@ -5,7 +5,7 @@ export default function Hero() {
     const navigate = useNavigate();
 
     return (
-        <section className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+        <section className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
             {/* Abstract Background Decoration */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 -z-10"></div>
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 -z-10"></div>

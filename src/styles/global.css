@@ -80,19 +80,6 @@ body {
 
 /* Floating shapes */
 .floating-shape {
-    position: fixed;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 113, 227, 0.08) 0%, transparent 70%);
-    filter: blur(60px);
-    pointer-events: none;
-    z-index: -1;
-    animation: float 20s ease-in-out infinite;
-}
-
-.floating-shape.shape-1 {
-    width: 400px;
-    height: 400px;
-    top: 10%;
     left: -10%;
     animation-delay: 0s;
 }

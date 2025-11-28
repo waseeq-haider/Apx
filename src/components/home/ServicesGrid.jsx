@@ -34,19 +34,22 @@ const ServicesGrid = () => {
                     gap: 'var(--spacing-lg)'
                 }}>
                     {services.map((service, index) => (
-                        <div key={index} style={{
-                            backgroundColor: 'white',
-                            padding: 'var(--spacing-lg)',
-                            borderRadius: 'var(--radius-xl)',
-                            boxShadow: 'var(--shadow-sm)',
-                            transition: 'var(--transition-normal)',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            overflow: 'hidden'
-                        }}
+                        <div key={index}
+                            className="animate-in fade-in slide-in-from-bottom-8 fill-mode-forwards duration-700"
+                            style={{
+                                backgroundColor: 'white',
+                                padding: 'var(--spacing-lg)',
+                                borderRadius: 'var(--radius-xl)',
+                                boxShadow: 'var(--shadow-sm)',
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                overflow: 'hidden',
+                                animationDelay: `${index * 100}ms`
+                            }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-5px)';
                                 e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
