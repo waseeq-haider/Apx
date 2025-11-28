@@ -27,14 +27,14 @@ const Hero = () => {
                     Get instant quotes, send photos, or chat with your personal AI home assistant.
                 </p>
 
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: 'var(--spacing-3xl)' }}>
-                    <Link to="/book" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1rem' }}>
+                <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                    <Link to="/book" className="btn btn-primary w-full sm:w-auto" style={{ padding: '0.9rem 1.6rem', fontSize: '1rem' }}>
                         Request a Quote <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
                     </Link>
-                    <button className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1rem' }}>
+                    <button className="btn btn-secondary w-full sm:w-auto" style={{ padding: '0.9rem 1.6rem', fontSize: '1rem' }}>
                         <Phone size={18} style={{ marginRight: '0.5rem' }} /> Request a Call
                     </button>
-                    <button className="btn btn-outline" style={{ padding: '1rem 2rem', fontSize: '1rem' }}>
+                    <button className="btn btn-outline w-full sm:w-auto" style={{ padding: '0.9rem 1.6rem', fontSize: '1rem' }}>
                         <Camera size={18} style={{ marginRight: '0.5rem' }} /> Send Photos
                     </button>
                 </div>
@@ -48,7 +48,8 @@ const Hero = () => {
                         maxWidth: '1000px',
                         margin: '0 auto',
                         position: 'relative',
-                        height: '500px',
+                        height: '60vw',
+                        maxHeight: '600px',
                         cursor: 'none' // Hide default cursor for better effect
                     }}
                     onMouseMove={(e) => {

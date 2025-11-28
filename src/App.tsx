@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
 import HomePage from './pages/HomePage'
 import ChatPage from './pages/ChatPage'
 import QuotePage from './pages/QuotePage'
@@ -32,13 +32,25 @@ function App() {
         };
     }, []);
 
+    // Force a full page reload when navigating back to `/` (covers back button)
+    const location = useLocation();
+    const prevPath = useRef(location.pathname);
+
+    useEffect(() => {
+        if (location.pathname === '/' && prevPath.current !== '/') {
+            // Use a full reload so Home is refreshed from the server
+            window.location.href = '/';
+        }
+        prevPath.current = location.pathname;
+    }, [location.pathname]);
+
     return (
         <Routes>
-            <Route key="home" path="/" element={<HomePage />} />
-            <Route key="chat" path="/chat" element={<ChatPage />} />
-            <Route key="quote" path="/quote" element={<QuotePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/quote" element={<QuotePage />} />
         </Routes>
-    )
+    );
 }
 
 export default App

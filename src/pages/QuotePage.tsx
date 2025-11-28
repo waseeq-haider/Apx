@@ -11,8 +11,8 @@ const QuotePage: React.FC = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 py-12 px-4 sm:px-6">
 
-            <div className="max-w-6xl mx-auto mb-8 reveal active">
-                <button onClick={() => navigate('/')} className="flex items-center text-purple-600 hover:text-purple-900 font-bold transition-colors">
+                <div className="max-w-6xl mx-auto mb-8 reveal active">
+                <button onClick={() => { window.location.href = '/'; }} className="flex items-center text-purple-600 hover:text-purple-900 font-bold transition-colors">
                     <ArrowLeft className="mr-2" /> Back to Services
                 </button>
             </div>
@@ -26,7 +26,7 @@ const QuotePage: React.FC = () => {
                         <p className="text-purple-600/80">Fill in the details below. Our AI will analyze your request and provide 3 tier pricing options instantly.</p>
                     </div>
 
-                    <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                    <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); /* form processing here */ window.location.href = '/'; }}>
 
                         {/* Contact Info */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,7 +107,7 @@ const QuotePage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg py-5 rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all hover:-translate-y-1">
+                            <button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg py-5 rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all hover:-translate-y-1">
                                 Analyze & Get Quote
                             </button>
                         </div>

@@ -17,13 +17,13 @@ export default function Navigation() {
     return (
         <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-purple-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-20 items-center">
+                <div className="flex justify-between h-16 md:h-20 items-center">
                     {/* Logo */}
-                    <Link to="/" className="flex-shrink-0 flex items-center cursor-pointer group">
+                    <Link to="/" onClick={(e) => { e.preventDefault(); window.location.href = '/'; }} className="flex-shrink-0 flex items-center cursor-pointer group">
                         <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mr-3 shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
                             <span className="text-white font-bold text-xl">A</span>
                         </div>
-                        <span className="font-bold text-2xl text-slate-900 tracking-tight group-hover:text-purple-600 transition-colors">Apex</span>
+                        <span className="font-bold text-xl sm:text-2xl text-slate-900 tracking-tight group-hover:text-purple-600 transition-colors">Apex</span>
                     </Link>
 
                     {/* Desktop Nav */}
