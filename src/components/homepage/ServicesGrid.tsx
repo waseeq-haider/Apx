@@ -76,18 +76,24 @@ interface ServiceCardProps {
 function ServiceCard({ service, index }: ServiceCardProps) {
     return (
         <div
-            className={`reveal delay-${index * 100} group bg-white rounded-[2rem] p-8 hover:shadow-xl ${service.shadow} transition-all duration-500 hover:-translate-y-2 overflow-hidden relative border border-stone-100`}
+            className={`reveal delay-${index * 100} group bg-white rounded-[2rem] p-8 hover:shadow-2xl ${service.shadow} transition-all duration-500 hover:-translate-y-3 overflow-hidden relative border-2 border-stone-100 hover:border-purple-300 hover:scale-105`}
+            style={{
+                transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+            }}
         >
             {/* Gradient Background Effect */}
-            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.gradient} opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity duration-500`} />
+            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.gradient} opacity-5 rounded-full blur-3xl group-hover:opacity-20 transition-opacity duration-500`} />
 
-            <div className={`w-14 h-14 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative z-10 shadow-lg`}>
+            {/* Glow Effect on Hover */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-[2rem]`} />
+
+            <div className={`w-14 h-14 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 relative z-10 shadow-lg group-hover:shadow-2xl`}>
                 <service.icon className="w-7 h-7 text-white" />
             </div>
 
             <div className="relative z-10">
                 <h3 className="text-xl font-bold mb-3 text-slate-900 group-hover:text-purple-600 transition-colors duration-300">{service.title}</h3>
-                <p className="text-slate-500 leading-relaxed">
+                <p className="text-slate-500 leading-relaxed group-hover:text-slate-700 transition-colors duration-300">
                     {service.description}
                 </p>
             </div>

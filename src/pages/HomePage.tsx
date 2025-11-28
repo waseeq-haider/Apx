@@ -10,19 +10,23 @@ import PricingPreview from '../components/homepage/PricingPreview'
 import FloatingChatBubble from '../components/homepage/FloatingChatBubble'
 import Gallery from '../components/homepage/Gallery'
 import Loader from '../components/shared/Loader'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function HomePage() {
     const [isLoading, setIsLoading] = useState(() => {
         // Check if page is being reloaded/refreshed
-        return performance.navigation.type === performance.navigation.TYPE_RELOAD || 
-               performance.getEntriesByType('navigation')[0]?.type === 'reload'
+        const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+        return performance.navigation?.type === 1 || navEntry?.type === 'reload'
     })
+
+    // Enable scroll-triggered animations
+    useScrollAnimation()
 
     useEffect(() => {
         if (isLoading) {
             // Scroll to top
             window.scrollTo(0, 0)
-            
+
             // Force re-render of all images and assets
             const images = document.querySelectorAll('img')
             images.forEach((img) => {

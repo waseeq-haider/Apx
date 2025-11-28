@@ -1,8 +1,19 @@
 import { ArrowRight, Phone, Camera, Search, MapPin, CheckCircle2, Sparkles } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import AnimatedHomeIcon from '../shared/AnimatedHomeIcon'
 
 export default function Hero() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const [showHomeIcon, setShowHomeIcon] = useState(false)
+
+    useEffect(() => {
+        // Show the home icon after a brief delay to allow for page load
+        const timer = setTimeout(() => {
+            setShowHomeIcon(true)
+        }, 1200)
+        return () => clearTimeout(timer)
+    }, [])
 
     return (
         <section className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
@@ -10,22 +21,39 @@ export default function Hero() {
             <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 -z-10"></div>
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 -z-10"></div>
 
-            <div className="reveal active bg-white/80 backdrop-blur-xl rounded-[3rem] p-6 sm:p-8 md:p-16 shadow-sm border border-purple-100 relative overflow-hidden">
+            <div className="reveal bg-white/80 backdrop-blur-xl rounded-[3rem] p-6 sm:p-8 md:p-16 shadow-sm border border-purple-100 relative overflow-hidden">
 
                 <div className="relative z-10 max-w-3xl">
-                    <div className="reveal active delay-100 inline-flex items-center px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wide mb-6 border border-purple-100">
+                    <div className="reveal delay-100 inline-flex items-center px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wide mb-6 border border-purple-100">
                         <Sparkles size={14} className="mr-1" />
                         AI-Powered Home Care
                     </div>
-                    <h1 className="reveal active delay-200 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                    <h1 className="reveal delay-200 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
                         Home Experts at <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Your Door.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 inline-flex items-baseline gap-0 flex-wrap">
+                            Your
+                            <span
+                                className={`inline-block transition-all duration-1000 ${showHomeIcon
+                                    ? 'opacity-100 scale-100 rotate-0'
+                                    : 'opacity-0 scale-0 rotate-180'
+                                    } hover:-translate-y-2 cursor-pointer`}
+                                style={{
+                                    transformOrigin: 'center',
+                                    animation: showHomeIcon ? 'bounce-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
+                                    marginLeft: '0.15em',
+                                    marginRight: '0.15em'
+                                }}
+                            >
+                                <AnimatedHomeIcon size={64} className="sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 align-baseline" />
+                            </span>
+                            Door.
+                        </span>
                     </h1>
-                    <p className="reveal active delay-300 text-base sm:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed">
+                    <p className="reveal delay-300 text-base sm:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed">
                         Expert home services, delivered to your doorstep. Get reliable handyman solutions with instant AI estimates. Fast, professional, and tailored to your needs.
                     </p>
 
-                    <div className="reveal active delay-500 flex flex-col sm:flex-row gap-4">
+                    <div className="reveal delay-500 flex flex-col sm:flex-row gap-4">
                         <Link to="/quote" className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg flex items-center justify-center transition-transform hover:-translate-y-1 shadow-xl shadow-slate-900/10">
                             Request a Quote <ArrowRight className="ml-2 w-5 h-5" />
                         </Link>
@@ -38,7 +66,7 @@ export default function Hero() {
                     </div>
 
                     {/* Search Bar Visual */}
-                    <div className="reveal active delay-700 mt-12 bg-white shadow-xl shadow-purple-100/50 rounded-2xl p-2 flex flex-col sm:flex-row items-stretch sm:items-center max-w-2xl border border-slate-100 gap-2">
+                    <div className="reveal delay-700 mt-12 bg-white shadow-xl shadow-purple-100/50 rounded-2xl p-2 flex flex-col sm:flex-row items-stretch sm:items-center max-w-2xl border border-slate-100 gap-2">
                         <div className="flex items-center pl-4 pr-2 text-slate-400">
                             <MapPin className="w-5 h-5" />
                         </div>
@@ -52,7 +80,7 @@ export default function Hero() {
                 </div>
 
                 {/* Hero Image Collage */}
-                <div className="reveal active delay-500 hidden xl:block absolute top-1/2 right-16 -translate-y-1/2 w-[400px]">
+                <div className="reveal delay-500 hidden xl:block absolute top-1/2 right-16 -translate-y-1/2 w-[400px]">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-4 translate-y-8">
                             {/* Team / Worker Image */}

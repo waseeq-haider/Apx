@@ -1,4 +1,4 @@
-import { Loader as LoaderIcon } from 'lucide-react'
+import AnimatedHomeIcon from './AnimatedHomeIcon'
 
 interface LoaderProps {
     isVisible: boolean
@@ -9,12 +9,9 @@ export default function Loader({ isVisible, message = 'Loading...' }: LoaderProp
     if (!isVisible) return null
 
     return (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 flex items-center justify-center">
-            <div className="bg-white rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-4">
-                <div className="animate-spin">
-                    <LoaderIcon size={40} className="text-purple-600" />
-                </div>
-                <p className="text-slate-600 font-medium text-center">{message}</p>
+        <div className="fixed inset-0 bg-white backdrop-blur-md z-50 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+                <AnimatedHomeIcon isLoading={true} size={100} showProgress={true} />
             </div>
         </div>
     )
