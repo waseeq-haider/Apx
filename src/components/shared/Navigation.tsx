@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, MessageSquare, CalendarCheck, Phone } from 'lucide-react';
+import { Menu, X, Home, MessageSquare, CalendarCheck, Phone, LogIn, LogOut, User } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const location = useLocation();
+    const { user, isAuthenticated, logout } = useAuth();
+    const userMenuRef = useRef<HTMLDivElement>(null);
+
+    // Close user menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setShowUserMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const navItems = [
         { label: 'Home', path: '/', icon: Home },
@@ -42,6 +58,65 @@ export default function Navigation() {
                             </Link>
                         ))}
                         <div className="h-6 w-px bg-slate-200 mx-2"></div>
+
+                        {/* Login Button or User Menu */}
+                        {isAuthenticated && user ? (
+                            <div className="relative" ref={userMenuRef}>
+                                <button
+                                    onClick={() => setShowUserMenu(!showUserMenu)}
+                                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg transition-all duration-200"
+                                >
+                                    <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                                        <User size={14} />
+                                    </div>
+                                    <span>{user.name}</span>
+                                </button>
+
+                                {/* User Dropdown Menu */}
+                                {showUserMenu && (
+                                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-purple-100 overflow-hidden animate-in slide-in-from-top-2 fade-in duration-200">
+                                        <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-b border-purple-100">
+                                            <p className="font-semibold text-purple-900">{user.name}</p>
+                                            <p className="text-xs text-purple-600 capitalize">{user.role.replace('_', ' ')}</p>
+                                        </div>
+                                        <div className="p-2">
+                                            <Link
+                                                to={
+                                                    user.role === 'admin' ? '/admin/dashboard' :
+                                                        user.role === 'field_manager' ? '/fm/dashboard' :
+                                                            user.role === 'contractor' ? '/contractor/dashboard' :
+                                                                user.role === 'investor' ? '/investor/dashboard' : '/'
+                                                }
+                                                onClick={() => setShowUserMenu(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-purple-50 text-purple-700 transition-colors"
+                                            >
+                                                <Home size={18} />
+                                                <span className="text-sm font-medium">My Dashboard</span>
+                                            </Link>
+                                            <button
+                                                onClick={() => {
+                                                    logout();
+                                                    setShowUserMenu(false);
+                                                }}
+                                                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-red-50 text-red-600 transition-colors"
+                                            >
+                                                <LogOut size={18} />
+                                                <span className="text-sm font-medium">Sign Out</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="flex items-center px-5 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-200 hover:-translate-y-0.5"
+                            >
+                                <LogIn size={16} className="mr-2" />
+                                Login
+                            </Link>
+                        )}
+
                         <button className="flex items-center px-4 py-2 rounded-full text-sm font-bold text-purple-700 hover:bg-purple-50 transition-colors">
                             <Phone size={16} className="mr-2" />
                             (555) 123-4567
@@ -79,6 +154,48 @@ export default function Navigation() {
                                 {item.label}
                             </Link>
                         ))}
+                        {/* Mobile Login/User Section */}
+                        {isAuthenticated && user ? (
+                            <div className="space-y-3 mt-4">
+                                <div className="px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                                    <p className="font-semibold">{user.name}</p>
+                                    <p className="text-xs text-white/80 capitalize">{user.role.replace('_', ' ')}</p>
+                                </div>
+                                <Link
+                                    to={
+                                        user.role === 'admin' ? '/admin/dashboard' :
+                                            user.role === 'field_manager' ? '/fm/dashboard' :
+                                                user.role === 'contractor' ? '/contractor/dashboard' :
+                                                    user.role === 'investor' ? '/investor/dashboard' : '/'
+                                    }
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex items-center justify-center px-6 py-4 rounded-2xl text-lg font-bold bg-white/50 text-purple-700 hover:bg-white hover:shadow-md transition-all"
+                                >
+                                    <Home size={24} className="mr-3" />
+                                    My Dashboard
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        setIsOpen(false);
+                                    }}
+                                    className="w-full flex items-center justify-center px-6 py-4 rounded-2xl text-lg font-bold text-white bg-red-500 hover:bg-red-600 shadow-lg active:scale-95 transition-all"
+                                >
+                                    <LogOut size={24} className="mr-3" />
+                                    Sign Out
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={() => setIsOpen(false)}
+                                className="mt-4 w-full flex items-center justify-center px-6 py-4 rounded-2xl text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg active:scale-95 transition-all"
+                            >
+                                <LogIn size={24} className="mr-3" />
+                                Login
+                            </Link>
+                        )}
+
                         <button className="mt-4 w-full flex items-center justify-center px-6 py-4 rounded-2xl text-lg font-bold text-white bg-slate-900 shadow-lg active:scale-95 transition-all">
                             <Phone size={24} className="mr-3" />
                             Call Now
